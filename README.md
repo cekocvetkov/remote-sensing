@@ -3,6 +3,8 @@
 `./StartRemoteSensingApp.sh`
 This builds the Quarkus Java Backend JAR file and runs `docker-compose up`
 
+(one can add own geotiff images under tiny-py-local-stac/stac/images, before starting the docker containers, which will then be available for the whole application)
+
 The docker-compose starts the frontend and all the needed components for the full-stack solution.
 After all is successfully started one can access the frontend on `localhost:3000`
 <img width="978" alt="Screenshot 2024-04-30 at 16 18 55" src="https://github.com/cekocvetkov/remote-sensing/assets/7689051/eff9ca08-5c15-4e92-9e61-9ae353771169">
