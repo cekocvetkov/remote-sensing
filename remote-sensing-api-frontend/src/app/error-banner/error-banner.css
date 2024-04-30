@@ -1,0 +1,20 @@
+.error-banner {
+  text-align: center;
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid #f5c6cb;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.error-banner .close-btn {
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 16px;
+  color: #721c24;
+}
+

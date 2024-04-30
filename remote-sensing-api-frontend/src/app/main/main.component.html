@@ -1,0 +1,121 @@
+<app-map
+  [loading]="(vm$ | async)!.loading"
+  [loadedImage]="(vm$ | async)!.selectedItem"
+  [currentExtent]="(vm$ | async)!.currentExtent"
+  [mapSource]="(vm$ | async)!.mapSource"
+  (drawEnd$)="onDrawEnd($event)"
+>
+</app-map>
+
+<div class="controls">
+  <div class="button-wrapper" *ngIf="(vm$ | async)!.mapSource === 'OSM'">
+    <label>Data provider:</label>
+    <select (change)="onChangeDataProvider($event)">
+      <option value="STAC">STAC</option>
+      <option value="SentinelProcessingApi">Sentinel Processing API</option>
+    </select>
+  </div>
+
+  <div class="button-wrapper">
+    <label>Map source:</label>
+    <select (change)="onChangeMapSource($event)">
+      <option value="OSM">Open Street map</option>
+      <option value="Aerial">Bing Aerial Map</option>
+    </select>
+  </div>
+
+  <div class="button-wrapper">
+    <label>Detection Algorithms: </label>
+    <select (change)="onDetection($event)">
+      <option value="yolov8dior__object-detection">yolov8dior</option>
+      <option value="yolov9c__object-detection">yolov9coco</option>
+      <option value="ceadar__yolov9__20epoch__tree-detection">
+        ceadar__yolov9__20epoch__tree-detection
+      </option>
+      <option value="ceadar__yolov8__10epoch__tree-detection">
+        ceadar__yolov8__10epoch__tree-detection
+      </option>
+      <option value="ceadar__yolov8__20epoch__tree-detection">
+        ceadar__yolov8__20epoch__tree-detection
+      </option>
+      <option value="ceadar__yolov8__50epoch__tree-detection">
+        ceadar__yolov8__50epoch__tree-detection
+      </option>
+      <option value="jdrzej-szpygiel__yolov8__10epoch__tree-detection">
+        jdrzej-szpygiel__yolov8__10epoch__tree-detection
+      </option>
+      <option value="jdrzej-szpygiel__yolov8__20epoch__tree-detection">
+        jdrzej-szpygiel__yolov8__20epoch__tree-detection
+      </option>
+      <option value="jdrzej-szpygiel__yolov8__50epoch__tree-detection">
+        jdrzej-szpygiel__yolov8__50epoch__tree-detection
+      </option>
+      <option value="project-5jlv8__yolov8__10epoch__object-detection">
+        project-5jlv8__yolov8__10epoch__object-detection
+      </option>
+      <option value="project-5jlv8__yolov8__20epoch__object-detection">
+        project-5jlv8__yolov8__20epoch__object-detection
+      </option>
+      <option value="project-5jlv8__yolov8__50epoch__object-detection">
+        project-5jlv8__yolov8__50epoch__object-detection
+      </option>
+      <option
+        value="robotic-perception-gwk44__yolov8__10epoch__object-detection"
+      >
+        robotic-perception-gwk44__yolov8__10epoch__object-detection
+      </option>
+      <option
+        value="robotic-perception-gwk44__yolov8__20epoch__object-detection"
+      >
+        robotic-perception-gwk44__yolov8__20epoch__object-detection
+      </option>
+      <option
+        value="robotic-perception-gwk44__yolov8__50epoch__object-detection"
+      >
+        robotic-perception-gwk44__yolov8__50epoch__object-detection
+      </option>
+      <option value="TreeDetectionDeepforest">Tree Detection Deepforest</option>
+      <option value="TreeDetectionDeepforestCustom">
+        Tree Detection Deepforest Custom
+      </option>
+    </select>
+  </div>
+  <button
+    *ngIf="(vm$ | async)!.mapSource === 'Aerial'"
+    (click)="onTakeScreenshot()"
+  >
+    Detect
+  </button>
+
+  <div>
+    <form
+      *ngIf="(vm$ | async)!.mapSource != 'Aerial'"
+      [formGroup]="sentinelForm"
+      class="control-group"
+    >
+      <div class="input-group">
+        <label for="dateFrom">Date From:</label>
+        <input type="date" id="dateFrom" formControlName="dateFrom" />
+      </div>
+
+      <div class="input-group">
+        <label for="dateTo">Date To:</label>
+        <input type="date" id="dateTo" formControlName="dateTo" />
+      </div>
+
+      <div class="input-group">
+        <label for="cloudCoverage">Cloud Coverage:</label>
+        <input
+          type="number"
+          id="cloudCoverage"
+          formControlName="cloudCoverage"
+        />
+      </div>
+    </form>
+  </div>
+  <div *ngIf="(vm$ | async)!.mapSource !== 'Aeriel'"></div>
+  <app-items-preview
+    [items]="(vm$ | async)!.items"
+    (loadImage)="loadImageSTAC($event)"
+  ></app-items-preview>
+</div>

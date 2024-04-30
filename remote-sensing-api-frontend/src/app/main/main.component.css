@@ -1,0 +1,46 @@
+form {
+}
+.control-group {
+}
+.input-group {
+  font-size: small;
+  display: flex;
+}
+
+.input-group label {
+  height: 20px;
+  width: 180px;
+}
+.button-wrapper {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+.button-wrapper label {
+  width: 180px;
+}
+button {
+  display: flex;
+  margin-bottom: 2rem;
+}
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image-container img {
+  width: 600px;
+}
+.class {
+  margin-bottom: 2rem;
+}
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 2rem;
+}
+.takeScreenshot img {
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}

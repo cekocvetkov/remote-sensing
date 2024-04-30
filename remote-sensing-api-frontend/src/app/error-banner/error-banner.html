@@ -1,0 +1,4 @@
+<div *ngIf="errorMessage" class="error-banner">
+  <p>{{ errorMessage }}</p>
+  <span (click)="closeBanner()" class="close-btn">&times;</span>
+</div>

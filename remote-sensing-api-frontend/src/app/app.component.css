@@ -1,0 +1,14 @@
+header {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  margin-left: 8rem;
+  display: flex;
+  font-weight: bold;
+  font-size: x-large;
+  justify-content: center;
+}
+.app-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

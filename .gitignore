@@ -1,0 +1,6 @@
+tiny-py-local-stac/stac/images
+docker rm
+.DS_Store
+.idea
+quarkus-docker/lib
+quarkus-docker/remote-sensing-api*

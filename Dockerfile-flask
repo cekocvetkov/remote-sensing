@@ -1,0 +1,16 @@
+from python:3.11-slim
+
+WORKDIR /app
+
+COPY tiny-py-local-stac/requirements.txt /app/requirements.txt
+
+RUN apt update
+RUN apt-get -y install g++
+RUN apt -y install libgdal-dev
+
+# Install dependencies
+RUN pip install -r requirements.txt
+
+COPY ./tiny-py-local-stac/rest-api-free-samples.py /app/rest-api-free-samples.py
+
+CMD ["python", "/app/rest-api-free-samples.py"]

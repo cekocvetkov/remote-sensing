@@ -1,0 +1,34 @@
+.quicklook-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  /* display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center; */
+}
+
+.quicklook-product {
+  display: flex;
+  cursor: pointer;
+  font-size: xx-small;
+  margin-bottom: 0.5rem;
+  /* font-size: xx-small;
+  max-width: 50px;
+  margin: 2rem;
+  overflow-wrap: break-word;
+  cursor: pointer; */
+}
+.quicklook-product div {
+  display: flex;
+  align-items: center;
+}
+.quicklook-product:hover {
+  background-color: rgb(213, 213, 213);
+}
+
+.quicklook-product img {
+  width: 40px;
+  object-fit: contain;
+  margin-right: 1rem;
+}
