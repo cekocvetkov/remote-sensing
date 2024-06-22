@@ -40,9 +40,13 @@ public class STACClient {
         LOG.info("Make stac items request for the following sources: " + urls);
         List<String> responseBodys = new ArrayList<>();
         for (String url : urls) {
-            String responseBody = makeGetRequest(url + "?bbox=" + getBoundingBoxString(extentRequest.getExtent()) + "&timerange=" + extentRequest.getDateFrom() + "/" + extentRequest.getDateTo()
-                    + "&eo:cloud_cover=" + extentRequest.getCloudCoverage());
-            responseBodys.add(responseBody);
+            try {
+                String responseBody = makeGetRequest(url + "?bbox=" + getBoundingBoxString(extentRequest.getExtent()) + "&timerange=" + extentRequest.getDateFrom() + "/" + extentRequest.getDateTo()
+                        + "&eo:cloud_cover=" + extentRequest.getCloudCoverage());
+                responseBodys.add(responseBody);
+            } catch (ServerErrorException ex ){
+                LOG.warn("No access to "+url);
+            }
         }
         return STACObjectMapper.getStacItemsPreview(responseBodys);
     }
