@@ -39,6 +39,7 @@ export class MainComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.mainStore.getModels();
     this.mainStore.dataSource('STAC');
     this.mainStore.detectionType('yolov8dior__object-detection');
     this.mainStore.mapSource({

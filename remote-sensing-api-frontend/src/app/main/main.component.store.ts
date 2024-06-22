@@ -11,6 +11,7 @@ import {
 import { SentinelService } from '../services/sentinel.service';
 import { MapSource, SentinelRequest } from './main.component';
 import { StacService } from '../services/stac.service';
+import { Model, ModelService } from '../services/models.service';
 
 export interface STACItemPreview {
   id: string;
@@ -30,6 +31,7 @@ export interface MainState {
   mapSource: string;
   dataSource: string;
   detection: string;
+  models: Model[];
 }
 
 export const initialState: MainState = {
@@ -43,13 +45,15 @@ export const initialState: MainState = {
   mapSource: '',
   dataSource: '',
   detection: '',
+  models: [],
 };
 
 @Injectable()
 export class MainStore extends ComponentStore<MainState> {
   constructor(
     private sentinelService: SentinelService,
-    private stacService: StacService
+    private stacService: StacService,
+    private modelService: ModelService
   ) {
     super(initialState);
   }
@@ -66,6 +70,7 @@ export class MainStore extends ComponentStore<MainState> {
   private mapSource$ = this.select((state) => state.mapSource);
   private dataSource$ = this.select((state) => state.dataSource);
   private detection$ = this.select((state) => state.detection);
+  private models$ = this.select((state) => state.models);
 
   public vm$ = this.select({
     loading: this.loading$,
@@ -78,6 +83,7 @@ export class MainStore extends ComponentStore<MainState> {
     mapSource: this.mapSource$,
     dataSource: this.dataSource$,
     detection: this.detection$,
+    models: this.models$,
   });
 
   private setLoading = this.updater((state, isLoading: boolean) => ({
@@ -137,6 +143,25 @@ export class MainStore extends ComponentStore<MainState> {
     loading: false,
     items: items,
   }));
+  private setModels = this.updater((state, models: Model[]) => ({
+    ...state,
+    models: models,
+  }));
+
+  readonly getModels = this.effect(($: Observable<void>) => {
+    return $.pipe(
+      tap(() => console.log('Getting available models...')),
+      switchMap(() =>
+        this.modelService.getAvailableModels().pipe(
+          tap({
+            next: (models: Model[]) => {
+              this.setModels(models);
+            },
+          })
+        )
+      )
+    );
+  });
 
   readonly mapSource = this.effect((sourceType$: Observable<MapSource>) => {
     return sourceType$.pipe(
@@ -207,23 +232,24 @@ export class MainStore extends ComponentStore<MainState> {
         switchMap(([sentinelRequest, datasource, detectionModel]) => {
           if (datasource === 'STAC') {
             console.log('Datasource STAC');
-            return this.stacService.getStacItems(
-              sentinelRequest.extent!,
-              sentinelRequest.dateFrom.toString(),
-              sentinelRequest.dateTo.toString(),
-              sentinelRequest.cloudCoverage
-            )
-            .pipe(
-              tap({
-                next: (items: STACItemPreview[]) => {
-                  this.setItems(items);
-                },
-                error: (e) => this.setError(e),
-              }),
-              catchError((e) => {
-                return of(e);
-              })
-            );
+            return this.stacService
+              .getStacItems(
+                sentinelRequest.extent!,
+                sentinelRequest.dateFrom.toString(),
+                sentinelRequest.dateTo.toString(),
+                sentinelRequest.cloudCoverage
+              )
+              .pipe(
+                tap({
+                  next: (items: STACItemPreview[]) => {
+                    this.setItems(items);
+                  },
+                  error: (e) => this.setError(e),
+                }),
+                catchError((e) => {
+                  return of(e);
+                })
+              );
           }
           console.log('Datasource Sentinel Processing API');
           return this.sentinelService
@@ -254,7 +280,7 @@ export class MainStore extends ComponentStore<MainState> {
       tap(() => this.setLoading(true)),
       withLatestFrom(this.currentExtent$, this.detection$),
       tap(([_, currentExtent, detection]) =>
-        console.log(`... and extent ${currentExtent}`)
+        console.log(`for ${detection} ... and extent ${currentExtent}`)
       ),
       switchMap(
         ([itemId, currentExtent, model]: [string, number[], string]) => {

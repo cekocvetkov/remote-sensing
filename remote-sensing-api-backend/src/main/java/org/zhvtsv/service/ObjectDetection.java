@@ -41,8 +41,8 @@ public class ObjectDetection implements IDetectionService {
 
         Mat inputBlob = Dnn.blobFromImage(resizedImage, 1.0 / 255.0, new Size(imageSize, imageSize), // Here we supply the spatial size that the Convolutional Neural Network expects.
                 new Scalar(new double[]{0.0, 0.0, 0.0}), true, false);
-        System.out.println(model);
-//        Net dnnNet = Dnn.readNetFromONNX(PathUtils.getPathForImageInResources(model + ".onnx"));
+
+        //        Net dnnNet = Dnn.readNetFromONNX(PathUtils.getPathForImageInResources(model + ".onnx"));
         Net dnnNet = Dnn.readNetFromONNX(modelsPath + model + ".onnx");
         LOG.info("DNN from ONNX was successfully loaded!");
 
@@ -65,14 +65,12 @@ public class ObjectDetection implements IDetectionService {
     private ArrayList<String> getClasses(String model) {
         ArrayList<String> imgLabels;
         String classesPath = CLASSES_PATH;
-        if (model.startsWith("yolov9")) {
-            classesPath = "cocoClasses.txt";
-        }
-        if (model.startsWith("project")) {
-            classesPath = "project.txt";
-        }
+
         if (model.startsWith("robotic")) {
             classesPath = "robotic.txt";
+        }
+        if (model.startsWith("aspire")) {
+            classesPath = "aspireClasses.txt";
         }
 
         try (Stream<String> lines = Files.lines(Path.of(modelsPath + classesPath))) {

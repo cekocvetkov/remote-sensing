@@ -25,9 +25,22 @@
   </div>
 
   <div class="button-wrapper">
-    <label>Detection Algorithms: </label>
+    <label>Detection Model: </label>
+
     <select (change)="onDetection($event)">
-      <option value="yolov8dior__object-detection">yolov8dior</option>
+      <option
+        *ngFor="let model of (vm$ | async)!.models"
+        [value]="model.modelName"
+      >
+        {{ model.detectionType }}: {{ model.displayName }}
+        <a class="dataset-link" href="https://paperswithcode.com/dataset/rsvgd"
+          >Click</a
+        >
+        ({{ model.epochsTrained }}
+        epochs)
+      </option>
+
+      <!-- <option value="yolov8dior__object-detection">yolov8dior</option>
       <option value="yolov9c__object-detection">yolov9coco</option>
       <option value="ceadar__yolov9__20epoch__tree-detection">
         ceadar__yolov9__20epoch__tree-detection
@@ -77,7 +90,7 @@
       <option value="TreeDetectionDeepforest">Tree Detection Deepforest</option>
       <option value="TreeDetectionDeepforestCustom">
         Tree Detection Deepforest Custom
-      </option>
+      </option> -->
     </select>
   </div>
   <button
