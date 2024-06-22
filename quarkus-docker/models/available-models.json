@@ -1,0 +1,78 @@
+[
+  {
+    "modelName": "yolov8dior__object-detection",
+    "displayName": "YOLOv8 DIOR Dataset",
+    "epochsTrained": "50",
+    "detectionType": "Object Detection",
+    "datasetUrl": "https://paperswithcode.com/dataset/rsvgd"
+  },
+  {
+    "modelName": "dior_yolov9s_10epoch__object-detection",
+    "displayName": "YOLOv9s DIOR Dataset",
+    "epochsTrained": "10",
+    "detectionType": "Object Detection",
+    "datasetUrl": "https://paperswithcode.com/dataset/rsvgd"
+  },
+  {
+    "modelName": "ankle-dior-vxhga__yolov9__10epoch__object-detection",
+    "displayName": "YOLOv9 Custom Dior Dataset (Ankle Dior, from roboflow",
+    "epochsTrained": "10",
+    "detectionType": "Object Detection"
+  },
+  {
+    "modelName": "school-f8o0o__yolov9__10epoch__tree-detection",
+    "displayName": "YOLOv9 Custom Dataset (School-f8o0o, from roboflow)",
+    "epochsTrained": "10",
+    "detectionType": "Tree Detection",
+    "datasetUrl": "https://universe.roboflow.com/ceadar/crown-detection/dataset/2"
+  },
+  {
+    "modelName": "ceadar__yolov8__10epoch__tree-detection",
+    "displayName": "YOLOv8 Custom Dataset (Ceader, from roboflow)",
+    "epochsTrained": "10",
+    "detectionType": "Tree Detection",
+    "datasetUrl": "https://universe.roboflow.com/ceadar/crown-detection/dataset/2"
+  },
+  {
+    "modelName": "ceadar__yolov8__20epoch__tree-detection",
+    "displayName": "YOLOv8 Custom Dataset (Ceader, from roboflow)",
+    "epochsTrained": "20",
+    "detectionType": "Tree Detection",
+    "datasetUrl": "https://universe.roboflow.com/ceadar/crown-detection/dataset/2"
+  },
+  {
+    "modelName": "ceadar__yolov8__50epoch__tree-detection",
+    "displayName": "YOLOv8 Custom Dataset (Ceader, from roboflow)",
+    "epochsTrained": "50",
+    "detectionType": "Tree Detection",
+    "datasetUrl": "https://universe.roboflow.com/ceadar/crown-detection/dataset/2"
+  },
+  {
+    "modelName": "caedar__yolov9__10epochs_tree-detection",
+    "displayName": "YOLOv9 Custom Dataset (Ceader, from roboflow)",
+    "epochsTrained": "10",
+    "detectionType": "Tree Detection",
+    "datasetUrl": "https://universe.roboflow.com/ceadar/crown-detection/dataset/2"
+  },
+  {
+    "modelName": "robotic-perception-gwk44__yolov8__10epoch__object-detection",
+    "displayName": "YOLOv8 Custom Dataset (robotic-perception, from roboflow)",
+    "epochsTrained": "10",
+    "detectionType": "Object Detection",
+    "datasetUrl": "https://universe.roboflow.com/robotic-perception-gwk44/drone-slejv"
+  },
+  {
+    "modelName": "robotic-perception-gwk44__yolov8__20epoch__object-detection",
+    "displayName": "YOLOv8 Custom Dataset (robotic-perception, from roboflow)",
+    "epochsTrained": "20",
+    "detectionType": "Object Detection",
+    "datasetUrl": "https://universe.roboflow.com/robotic-perception-gwk44/drone-slejv"
+  },
+  {
+    "modelName": "robotic-perception-gwk44__yolov8__50epoch__object-detection",
+    "displayName": "YOLOv8 Custom Dataset (robotic-perception, from roboflow)",
+    "epochsTrained": "50",
+    "detectionType": "Object Detection",
+    "datasetUrl": "https://universe.roboflow.com/robotic-perception-gwk44/drone-slejv"
+  }
+]

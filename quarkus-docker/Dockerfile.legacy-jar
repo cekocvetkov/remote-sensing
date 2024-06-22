@@ -85,6 +85,7 @@ ENV LANGUAGE='en_US:en'
 COPY lib/* /deployments/lib/
 COPY *-runner.jar /deployments/quarkus-run.jar
 COPY models/*.onnx /deployments/models/
+COPY models/*.json /deployments/models/
 COPY models/*.txt /deployments/models/
 
 EXPOSE 8080

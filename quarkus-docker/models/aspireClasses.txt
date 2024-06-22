@@ -1,0 +1,24 @@
+boat
+bridge
+bridge-plane
+car
+chimney
+city
+factory
+gym
+highway
+house
+nuclear power plant
+null
+ocean
+parking-lot
+plane
+playground
+railway
+river
+road
+stadium
+terrace
+train-station
+tree
+village
