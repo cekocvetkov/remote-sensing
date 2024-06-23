@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NotificationService} from "../services/notification-service";
+import { NotificationService } from '../services/notification-service';
 
 @Component({
   selector: 'error-banner',
@@ -13,7 +13,7 @@ export class ErrorBanner implements OnInit {
   constructor(private notificationService: NotificationService) {}
 
   ngOnInit() {
-    this.notificationService.error$.subscribe(errorMessage => {
+    this.notificationService.error$.subscribe((errorMessage: string) => {
       this.errorMessage = errorMessage;
     });
   }

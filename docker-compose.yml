@@ -45,8 +45,8 @@ services:
       - 8081:8081
   quarkus-app:
     build:
-      context: ./quarkus-docker
-      dockerfile: Dockerfile.legacy-jar
+      context: .
+      dockerfile: Dockerfile-quarkus
     ports:
       - 8080:8080
     environment:

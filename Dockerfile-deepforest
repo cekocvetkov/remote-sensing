@@ -2,17 +2,11 @@ from python:3.11-slim
 
 WORKDIR /app
 
-# COPY ./tiny-deepforest-inference/requirements.txt /app/requirements.txt
-# COPY ./tiny-deepforest-inference/models/*.pl /app/
-
 RUN apt update
 RUN apt-get update
 RUN apt-get -y install g++
 RUN apt -y install libgdal-dev
 RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
-
-# Install dependencies
-# RUN pip install -r requirements.txts
 
 RUN pip install flask
 RUN pip install opencv-python-headless

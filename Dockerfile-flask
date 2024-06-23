@@ -8,7 +8,6 @@ RUN apt update
 RUN apt-get -y install g++
 RUN apt -y install libgdal-dev
 
-# Install dependencies
 RUN pip install -r requirements.txt
 
 COPY ./tiny-py-local-stac/rest-api-free-samples.py /app/rest-api-free-samples.py
