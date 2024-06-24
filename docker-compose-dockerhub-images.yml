@@ -1,0 +1,46 @@
+services:
+  http-server-images:
+    image: "cekocvetkov/remote-sensing:http-server-images"
+    ports:
+      - 8088:8088
+    volumes:
+      - ./tiny-py-local-stac/stac/images:/app/stac/images
+  create-stac-collection:
+    image: "cekocvetkov/remote-sensing:create-stac-collection"
+    environment:
+      - IMAGE_SERVER_HOST=http-server-images
+    volumes:
+      - ./tiny-py-local-stac/stac/images:/app/stac/images
+      - ./tiny-py-local-stac/stac/stac-collection:/app/stac/stac-collection
+    restart: on-failure
+    depends_on:
+      - http-server-images
+  http-server-stac:
+    image: "cekocvetkov/remote-sensing:http-server-stac"
+    ports:
+      - 8089:8089
+    volumes:
+      - ./tiny-py-local-stac/stac/stac-collection:/app/stac/stac-collection
+    depends_on:
+      - create-stac-collection
+  flask:
+    image: "cekocvetkov/remote-sensing:flask"
+    environment:
+      - STAC_SERVER_HOST=http-server-stac
+    ports:
+      - 8082:8082
+  deepforest:
+    image: "cekocvetkov/remote-sensing:deepforest"
+    ports:
+      - 8081:8081
+  quarkus-app:
+    image: "cekocvetkov/remote-sensing:quarkus-app"
+    ports:
+      - 8080:8080
+    environment:
+      - FREE_SAMPLES_HOST=flask
+      - DEEPFOREST_URL=deepforest
+  angular-app:
+    image: "cekocvetkov/remote-sensing:angular-app"
+    ports:
+      - 3000:80
