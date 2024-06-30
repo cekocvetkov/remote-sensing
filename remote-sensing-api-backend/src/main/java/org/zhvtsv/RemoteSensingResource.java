@@ -69,7 +69,7 @@ public class RemoteSensingResource {
         } else if (model.endsWith("tree-detection")) {
             res = treeDetection.detectObjectOnImage(image, model);
         } else {
-            return Response.ok(treeDetectionDeepforest.detectObjectOnImage(image, model)).build();
+            res = treeDetectionDeepforest.detectObjectOnImage(image, model);
         }
         BufferedImage response = mat2BufferedImage(res);
         return Response.ok(response).build();
@@ -89,7 +89,7 @@ public class RemoteSensingResource {
         } else if (model.endsWith("object-detection")) {
             res = yolovObjectDetection.detectObjectOnImage(readImageFromInputStream(file), model);
         } else {
-            return Response.ok(treeDetectionDeepforest.detectObjectOnImage(res, model)).build();
+            res = treeDetectionDeepforest.detectObjectOnImage(readImageFromInputStream(file), model);
         }
         BufferedImage image = mat2BufferedImage(res);
         return Response.ok(image).build();

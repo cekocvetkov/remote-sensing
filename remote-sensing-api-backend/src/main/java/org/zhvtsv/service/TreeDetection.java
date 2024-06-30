@@ -39,7 +39,6 @@ public class TreeDetection implements IDetectionService {
         Mat inputBlob = Dnn.blobFromImage(resizedImage, 1.0 / 255.0, new Size(IMG_SIZE, IMG_SIZE), // Here we supply the spatial size that the Convolutional Neural Network expects.
                 new Scalar(new double[]{0.0, 0.0, 0.0}), true, false);
 
-        System.out.println(model);
         Net dnnNet = Dnn.readNetFromONNX(modelsPath + model + ".onnx");
         LOG.info("DNN from ONNX was successfully loaded!");
 

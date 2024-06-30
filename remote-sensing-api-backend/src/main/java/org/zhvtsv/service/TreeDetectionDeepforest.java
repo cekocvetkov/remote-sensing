@@ -17,20 +17,21 @@ import org.zhvtsv.exception.BadGatewayException;
 import org.zhvtsv.exception.DataReadException;
 
 @ApplicationScoped
-public class TreeDetectionDeepforest {
+public class TreeDetectionDeepforest implements IDetectionService{
     private static final Logger LOG = Logger.getLogger(TreeDetectionDeepforest.class);
 
     @ConfigProperty(name = "deepforest.url")
     String deepForestURL;
 
-    public byte[] detectObjectOnImage(Mat image, String model) {
+    public Mat detectObjectOnImage(Mat image, String model) {
         LOG.info("Detect with deepforest "+model);
         MatOfByte matOfByte = new MatOfByte();
         
         Imgcodecs.imencode(".tif", image, matOfByte);
         byte[] img = matOfByte.toArray();
         HttpClient httpClient = HttpClient.newHttpClient();
-        String url = "http://deepforest:8081/deepforest/"+model;
+        String url = deepForestURL+"/"+model;
+
         HttpRequest request = null;
         try {
             request = HttpRequest.newBuilder()
@@ -44,8 +45,11 @@ public class TreeDetectionDeepforest {
         }
 
         HttpResponse<byte[]> response = null;
+        Mat responseMat = new Mat();
         try {
             response = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
+            MatOfByte responseMatBytes = new MatOfByte(response.body());
+            responseMat = Imgcodecs.imdecode(responseMatBytes, Imgcodecs.IMREAD_UNCHANGED);
         } catch (IOException | InterruptedException e) {
             LOG.error("Error on calling the deepforest service", e);
             throw new BadGatewayException("Error on calling the deepforest service");
@@ -53,7 +57,7 @@ public class TreeDetectionDeepforest {
 
         LOG.info("Response code from deepforest microservice: " + response.statusCode());
 
-        return response.body();
+        return responseMat;
     }
 
 }
