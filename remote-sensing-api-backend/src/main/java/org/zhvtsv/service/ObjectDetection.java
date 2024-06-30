@@ -66,7 +66,8 @@ public class ObjectDetection implements IDetectionService {
         try {
             dnnNet = Dnn.readNetFromONNX(modelsPath + model + ".onnx");
         } catch ( CvException ex ) {
-            throw new NotFoundHttpException("Cannot read detection model file");
+            LOG.error("Cannot read detection model file", ex);
+            throw new ServerErrorException("Cannot read detection model file", Response.Status.INTERNAL_SERVER_ERROR);
         }
         if(dnnNet == null || dnnNet.empty()) {
             throw new ServerErrorException("There was an unexpected problem with detection model file", Response.Status.INTERNAL_SERVER_ERROR);
