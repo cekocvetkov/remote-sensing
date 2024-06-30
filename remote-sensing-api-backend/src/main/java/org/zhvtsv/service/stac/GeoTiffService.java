@@ -13,6 +13,7 @@ import org.jboss.logging.Logger;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
+import org.zhvtsv.exception.DataReadException;
 
 import java.awt.image.DataBufferByte;
 import java.io.IOException;
@@ -50,7 +51,8 @@ public class GeoTiffService {
 
             return convertToMat(cropped);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOG.error("error on reading geotiff", e);
+            throw new DataReadException("Error on reading geotiff");
         } finally {
             assert reader != null;
             reader.dispose();

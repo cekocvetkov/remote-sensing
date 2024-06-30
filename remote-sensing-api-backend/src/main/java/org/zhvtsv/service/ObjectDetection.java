@@ -1,15 +1,16 @@
 package org.zhvtsv.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ws.rs.ServerErrorException;
+import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.Scalar;
-import org.opencv.core.Size;
+import org.opencv.core.*;
 import org.opencv.dnn.Dnn;
 import org.opencv.dnn.Net;
 import org.opencv.imgproc.Imgproc;
+import org.zhvtsv.exception.DataReadException;
+import org.zhvtsv.exception.NotFoundHttpException;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -43,8 +44,7 @@ public class ObjectDetection implements IDetectionService {
                 new Scalar(new double[]{0.0, 0.0, 0.0}), true, false);
 
         //        Net dnnNet = Dnn.readNetFromONNX(PathUtils.getPathForImageInResources(model + ".onnx"));
-        Net dnnNet = Dnn.readNetFromONNX(modelsPath + model + ".onnx");
-        LOG.info("DNN from ONNX was successfully loaded!");
+        Net dnnNet = readNetFromONNXModel(model);
 
         dnnNet.setInput(inputBlob);
 
@@ -61,6 +61,19 @@ public class ObjectDetection implements IDetectionService {
         return resizedImage;
     }
 
+    private Net readNetFromONNXModel(String model) {
+        Net dnnNet = null;
+        try {
+            dnnNet = Dnn.readNetFromONNX(modelsPath + model + ".onnx");
+        } catch ( CvException ex ) {
+            throw new NotFoundHttpException("Cannot read detection model file");
+        }
+        if(dnnNet == null || dnnNet.empty()) {
+            throw new ServerErrorException("There was an unexpected problem with detection model file", Response.Status.INTERNAL_SERVER_ERROR);
+        }
+        LOG.info("DNN from ONNX was successfully loaded!");
+        return dnnNet;
+    }
 
     private ArrayList<String> getClasses(String model) {
         ArrayList<String> imgLabels;
@@ -76,7 +89,8 @@ public class ObjectDetection implements IDetectionService {
         try (Stream<String> lines = Files.lines(Path.of(modelsPath + classesPath))) {
             imgLabels = lines.collect(Collectors.toCollection(ArrayList::new));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOG.error("Error on reading model's class files", e);
+            throw new DataReadException("Error on reading model's class files");
         }
         return imgLabels;
     }

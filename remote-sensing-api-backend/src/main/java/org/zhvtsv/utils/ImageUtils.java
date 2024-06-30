@@ -1,12 +1,13 @@
 package org.zhvtsv.utils;
 
-import jakarta.ws.rs.NotFoundException;
 import org.jboss.logging.Logger;
 import org.opencv.core.*;
 import org.opencv.dnn.Dnn;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.utils.Converters;
+import org.zhvtsv.exception.DataReadException;
+import org.zhvtsv.exception.NotFoundHttpException;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -38,7 +39,8 @@ public class ImageUtils {
         try {
             imageBytes = inputStream.readAllBytes();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOG.error("Error on reading the image from input stream", e);
+            throw new DataReadException("Error on reading the image from input stream");
         }
         MatOfByte matOfByte = new MatOfByte(imageBytes);
         return Imgcodecs.imdecode(matOfByte, Imgcodecs.IMREAD_UNCHANGED);
@@ -56,7 +58,8 @@ public class ImageUtils {
         try {
             bufImage = ImageIO.read(in);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOG.error("Error on reading buffered Image", e);
+            throw new DataReadException("Error on reading buffered image");
         }
         return bufImage;
     }
@@ -95,7 +98,7 @@ public class ImageUtils {
         ArrayList<Integer> classIds = (ArrayList<Integer>) result.get("class_ids");
         if (classIds.isEmpty()) {
             LOG.info("No objects found");
-            throw new NotFoundException("No objects found");
+            throw new NotFoundHttpException("No objects found");
         }
 
         MatOfRect2d mOfRect = new MatOfRect2d();

@@ -2,10 +2,10 @@ package org.zhvtsv.service.sentinel;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.ServerErrorException;
-import jakarta.ws.rs.core.Response;
+import org.jboss.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.zhvtsv.exception.BadGatewayException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +17,7 @@ import java.util.Arrays;
 
 @ApplicationScoped
 public class SentinelProcessApiClient {
+    private static final Logger LOG = Logger.getLogger(SentinelProcessApiClient.class);
     @Inject
     SentinelAuth sentinelAuth;
 
@@ -36,7 +37,8 @@ public class SentinelProcessApiClient {
             response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofInputStream());
             return response.body();
         } catch (IOException | InterruptedException e) {
-            throw new ServerErrorException("Request for Sentinel Processing API Data failed", Response.Status.BAD_GATEWAY);
+            LOG.error("Request for Sentinel Processing API Data failed");
+            throw new BadGatewayException("Request for Sentinel Processing API Data failed");
         }
     }
 

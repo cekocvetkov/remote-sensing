@@ -10,6 +10,7 @@ import org.opencv.core.Size;
 import org.opencv.dnn.Dnn;
 import org.opencv.dnn.Net;
 import org.opencv.imgproc.Imgproc;
+import org.zhvtsv.exception.DataReadException;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -62,7 +63,8 @@ public class TreeDetection implements IDetectionService {
         try (Stream<String> lines = Files.lines(Path.of(modelsPath + CLASSES_PATH))) {
             imgLabels = lines.collect(Collectors.toCollection(ArrayList::new));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOG.error("Error on reading the classes file for the deepforest model", e);
+            throw new DataReadException("Error on reading the classes file for the deepforest model");
         }
         return imgLabels;
     }

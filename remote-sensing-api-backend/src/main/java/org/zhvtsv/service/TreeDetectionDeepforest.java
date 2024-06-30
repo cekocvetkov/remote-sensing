@@ -13,6 +13,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import org.jboss.logging.Logger;
+import org.zhvtsv.exception.BadGatewayException;
+import org.zhvtsv.exception.DataReadException;
 
 @ApplicationScoped
 public class TreeDetectionDeepforest {
@@ -37,17 +39,19 @@ public class TreeDetectionDeepforest {
                     .POST(HttpRequest.BodyPublishers.ofByteArray(img))
                     .build();
         } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+            LOG.error("Cannot read URI for deepforest service",e);
+            throw new DataReadException("Cannot read URI for deepforest service");
         }
 
         HttpResponse<byte[]> response = null;
         try {
             response = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
+            LOG.error("Error on calling the deepforest service", e);
+            throw new BadGatewayException("Error on calling the deepforest service");
         }
 
-        System.out.println("Response code from deepforest microservice: " + response.statusCode());
+        LOG.info("Response code from deepforest microservice: " + response.statusCode());
 
         return response.body();
     }
