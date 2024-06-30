@@ -76,7 +76,7 @@
     "datasetUrl": "https://universe.roboflow.com/robotic-perception-gwk44/drone-slejv"
   },
   {
-    "modelName": "Deepforest Default",
+    "modelName": "Deepforest_Default",
     "displayName": "Deepforest Prebuilt Model",
     "epochsTrained": "",
     "detectionType": "Tree Detection",
