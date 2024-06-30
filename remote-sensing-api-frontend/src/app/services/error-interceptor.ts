@@ -18,7 +18,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         } else {
           errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
         }
-        this.notificationService.showError(errorMessage);
+        this.notificationService.showError({ message: errorMessage, status: error.status });
         return throwError(() => errorMessage);
       })
     );

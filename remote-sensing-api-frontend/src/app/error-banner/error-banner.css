@@ -18,3 +18,17 @@
   color: #721c24;
 }
 
+.error-banner-warning {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+}
+
+.error-banner-warning .close-btn {
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 16px;
+  color: #856404;
+}

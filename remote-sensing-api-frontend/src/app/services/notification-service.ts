@@ -6,12 +6,12 @@ import {Subject} from "rxjs";
 })
 export class NotificationService {
 
-  private errorSubject: Subject<string> = new Subject<string>();
+  private errorSubject: Subject<{ message: string, status: number }> = new Subject<{ message: string, status: number }>();
 
   constructor() { }
 
-  showError(message: string): void {
-    this.errorSubject.next(message);
+  showError(error: { message: string, status: number }): void {
+    this.errorSubject.next(error);
   }
 
   get error$() {
