@@ -74,5 +74,12 @@
     "epochsTrained": "50",
     "detectionType": "Object Detection",
     "datasetUrl": "https://universe.roboflow.com/robotic-perception-gwk44/drone-slejv"
+  },
+  {
+    "modelName": "Deepforest Default",
+    "displayName": "Deepforest Prebuilt Model",
+    "epochsTrained": "",
+    "detectionType": "Tree Detection",
+    "datasetUrl": "https://www.neonscience.org/"
   }
 ]
