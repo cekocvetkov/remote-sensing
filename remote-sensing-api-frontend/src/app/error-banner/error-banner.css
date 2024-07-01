@@ -1,12 +1,16 @@
-.error-banner {
+.error-banner, .error-banner-warning {
+  position: relative;
   text-align: center;
-  background-color: #f8d7da;
-  color: #721c24;
   padding: 10px 15px;
   border-radius: 5px;
-  border: 1px solid #f5c6cb;
   margin-bottom: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.error-banner {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
 }
 
 .error-banner .close-btn {
@@ -16,6 +20,10 @@
   right: 10px;
   font-size: 16px;
   color: #721c24;
+}
+
+.error-banner .close-btn::before {
+  content: "×"; /* Use a multiplication sign to represent an X */
 }
 
 .error-banner-warning {
@@ -31,4 +39,8 @@
   right: 10px;
   font-size: 16px;
   color: #856404;
+}
+
+.error-banner-warning .close-btn::before {
+  content: "×"; /* Use a multiplication sign to represent an X */
 }

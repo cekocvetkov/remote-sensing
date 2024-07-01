@@ -1,23 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NotificationService } from '../services/notification-service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'error-banner',
   templateUrl: './error-banner.html',
   styleUrls: ['./error-banner.css'],
 })
-export class ErrorBanner implements OnInit {
+export class ErrorBanner implements OnInit, OnDestroy {
 
   errorMessage: string = '';
   errorStatus: number | null = null;
+  private errorTimeout: any;
+  private subscription: Subscription | null = null;
 
   constructor(private notificationService: NotificationService) {}
 
   ngOnInit() {
-    this.notificationService.error$.subscribe((error) => {
+    this.subscription = this.notificationService.error$.subscribe((error) => {
       this.errorMessage = error.message;
       this.errorStatus = error.status;
+
+      if (this.errorTimeout) {
+        clearTimeout(this.errorTimeout);
+      }
+
+      this.errorTimeout = setTimeout(() => {
+        this.closeBanner();
+      }, 3000);
     });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    if (this.errorTimeout) {
+      clearTimeout(this.errorTimeout);
+    }
   }
 
   closeBanner() {
@@ -36,4 +56,3 @@ export class ErrorBanner implements OnInit {
     }
   }
 }
-

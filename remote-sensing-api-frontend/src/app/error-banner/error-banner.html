@@ -1,4 +1,4 @@
 <div *ngIf="errorMessage" [ngClass]="getBannerClass()">
   <p>{{ errorMessage }}</p>
-  <button (click)="closeBanner()">Close</button>
+  <button (click)="closeBanner()" [ngClass]="'close-btn'"></button>
 </div>
