@@ -1,5 +1,7 @@
 # Full Stack Solution for Remote Sensing Object and Tree Detection
 
+This project uses Git Large File Storage. Before running the applications, you need to set it up with `git lfs install`
+and download the files with `git pull lfs`
 ## Start the project with docker
 
 All the images are pushed in a public dockerhub repository. To start the app simply execute:
