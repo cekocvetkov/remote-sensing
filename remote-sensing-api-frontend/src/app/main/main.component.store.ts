@@ -167,6 +167,9 @@ export class MainStore extends ComponentStore<MainState> {
     return sourceType$.pipe(
       tap((sourceType) => {
         this.setMapSourceType(sourceType.name);
+        if (sourceType.name == 'Aerial') {
+          this.setItems([]);
+        }
       })
     );
   });
