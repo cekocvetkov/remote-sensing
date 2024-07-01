@@ -15,9 +15,10 @@
   },
   {
     "modelName": "ankle-dior-vxhga__yolov9__10epoch__object-detection",
-    "displayName": "YOLOv9 Custom Dior Dataset (Ankle Dior, from roboflow",
+    "displayName": "YOLOv9 Custom Dior Dataset (Ankle Dior, from roboflow)",
     "epochsTrained": "10",
-    "detectionType": "Object Detection"
+    "detectionType": "Object Detection",
+    "datasetUrl": "https://universe.roboflow.com/ankle/dior-vxhga/"
   },
   {
     "modelName": "school-f8o0o__yolov9__10epoch__tree-detection",
@@ -77,9 +78,16 @@
   },
   {
     "modelName": "Deepforest_Default",
-    "displayName": "Deepforest Prebuilt Model",
+    "displayName": "Deepforest Prebuilt Model (NEON Dataset)",
     "epochsTrained": "",
     "detectionType": "Tree Detection",
     "datasetUrl": "https://www.neonscience.org/"
+  },
+  {
+    "modelName": "Deepforest_Custom",
+    "displayName": "Deepforest Custom Dataset (Ceader, from roboflow)",
+    "epochsTrained": "4",
+    "detectionType": "Tree Detection",
+    "datasetUrl": "https://universe.roboflow.com/ceadar/crown-detection/dataset/2"
   }
 ]

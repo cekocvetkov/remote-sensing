@@ -13,5 +13,6 @@ RUN pip install opencv-python-headless
 RUN pip install deepforest
 
 COPY ./tiny-deepforest-inference/deepforest-inference.py /app/deepforest-inference.py
+COPY ./models/saved4epochs.pl /app/saved4epochs.pl
 
 CMD ["python", "/app/deepforest-inference.py"]

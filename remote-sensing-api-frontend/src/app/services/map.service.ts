@@ -61,6 +61,7 @@ export class MapService {
     console.log(extent);
     console.log(this.map.getView().calculateExtent());
     if (extent.length === 0) {
+      console.log('Bing object detection');
       // Means we have BING screenshot simple source
       extent = this.map.getView().calculateExtent();
       console.log(extent[0]);
@@ -106,8 +107,8 @@ export class MapService {
       this.imageLayer,
       vectorLayer,
     ];
-
     this.map.setLayers(layers);
+
     const drawInteraction = this.createBBoxDrawInteraction(
       vectorLayer.getSource()!
     );
@@ -120,6 +121,7 @@ export class MapService {
     } else {
       this.map.addInteraction(drawInteraction);
     }
+
     this.map.render();
   }
 

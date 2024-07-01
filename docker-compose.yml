@@ -51,7 +51,7 @@ services:
       - 8080:8080
     environment:
       - FREE_SAMPLES_HOST=flask
-      - DEEPFOREST_URL=deepforest
+      - DEEPFOREST_URL=http://deepforest:8081/deepforest
   angular-app:
     build:
       context: .

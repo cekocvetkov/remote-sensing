@@ -15,12 +15,13 @@ import java.net.http.HttpResponse;
 import org.jboss.logging.Logger;
 import org.zhvtsv.exception.BadGatewayException;
 import org.zhvtsv.exception.DataReadException;
+import org.zhvtsv.exception.NotFoundHttpException;
 
 @ApplicationScoped
 public class TreeDetectionDeepforest implements IDetectionService{
     private static final Logger LOG = Logger.getLogger(TreeDetectionDeepforest.class);
 
-    @ConfigProperty(name = "deepforest.url")
+    @ConfigProperty(name = "deepforest.url", defaultValue = "http://localhost:8081/deepforest")
     String deepForestURL;
 
     public Mat detectObjectOnImage(Mat image, String model) {
@@ -31,6 +32,7 @@ public class TreeDetectionDeepforest implements IDetectionService{
         byte[] img = matOfByte.toArray();
         HttpClient httpClient = HttpClient.newHttpClient();
         String url = deepForestURL+"/"+model;
+        LOG.info("Deepforest service URL: "+url);
 
         HttpRequest request = null;
         try {
@@ -45,9 +47,13 @@ public class TreeDetectionDeepforest implements IDetectionService{
         }
 
         HttpResponse<byte[]> response = null;
+
         Mat responseMat = new Mat();
         try {
             response = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
+            if(response.statusCode() == 400 || response.statusCode() == 500) {
+                throw new NotFoundHttpException("No Trees not found");
+            }
             MatOfByte responseMatBytes = new MatOfByte(response.body());
             responseMat = Imgcodecs.imdecode(responseMatBytes, Imgcodecs.IMREAD_UNCHANGED);
         } catch (IOException | InterruptedException e) {
