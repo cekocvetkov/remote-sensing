@@ -83,8 +83,8 @@ public class ObjectDetection implements IDetectionService {
         if (model.startsWith("robotic")) {
             classesPath = "robotic.txt";
         }
-        if (model.startsWith("aspire")) {
-            classesPath = "aspireClasses.txt";
+        if (model.startsWith("ankle")) {
+            classesPath = "ankleDiorClasses.txt";
         }
 
         try (Stream<String> lines = Files.lines(Path.of(modelsPath + classesPath))) {
