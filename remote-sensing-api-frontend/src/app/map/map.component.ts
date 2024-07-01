@@ -25,6 +25,7 @@ export class MapComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['mapSource']) {
       this.mapService.changeMapSource(this.mapSource);
+      this.currentExtent = [];
     }
     if (changes['loadedImage']) {
       console.log(this.currentExtent);
