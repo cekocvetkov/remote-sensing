@@ -1,4 +1,4 @@
-tiny-py-local-stac/stac/images
+tiny-py-local-stac/stac/stac-collection
 docker rm
 .DS_Store
 .idea
