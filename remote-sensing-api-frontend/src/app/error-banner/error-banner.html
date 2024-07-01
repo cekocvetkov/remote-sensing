@@ -1,4 +1,7 @@
-<div *ngIf="errorMessage" [ngClass]="getBannerClass()">
+<div
+  *ngIf="errorMessage"
+  [ngClass]="errorStatus==404 ? 'error-banner error-banner-warning' : 'error-banner'"
+>
   <p>{{ errorMessage }}</p>
-  <button (click)="closeBanner()" [ngClass]="'close-btn'"></button>
+  <button (click)="closeBanner()">x</button>
 </div>

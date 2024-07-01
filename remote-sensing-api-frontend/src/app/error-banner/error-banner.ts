@@ -8,9 +8,11 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./error-banner.css'],
 })
 export class ErrorBanner implements OnInit, OnDestroy {
-
   errorMessage: string = '';
   errorStatus: number | null = null;
+  errorMessageNotification: string = '';
+  errorStatusNotification: number | null = null;
+
   private errorTimeout: any;
   private subscription: Subscription | null = null;
 
@@ -18,8 +20,9 @@ export class ErrorBanner implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.notificationService.error$.subscribe((error) => {
-      this.errorMessage = error.message;
-      this.errorStatus = error.status;
+      this.errorMessageNotification = error.message;
+      this.errorStatusNotification = error.status;
+      this.getBannerClass();
 
       if (this.errorTimeout) {
         clearTimeout(this.errorTimeout);
@@ -27,7 +30,7 @@ export class ErrorBanner implements OnInit, OnDestroy {
 
       this.errorTimeout = setTimeout(() => {
         this.closeBanner();
-      }, 3000);
+      }, 10000);
     });
   }
 
@@ -46,12 +49,13 @@ export class ErrorBanner implements OnInit, OnDestroy {
   }
 
   getBannerClass(): string {
-    if (!this.errorStatus) return '';
-    if (this.errorStatus == 404) {
-      this.errorMessage = 'Detection failed. No class found.'
+    this.errorStatus = this.errorStatusNotification;
+    if (this.errorStatusNotification == 404) {
+      this.errorMessage = 'Detection failed. No objects found.';
       return 'error-banner error-banner-warning';
     } else {
-      this.errorMessage = 'General technical error. See server logs for more details.'
+      this.errorMessage =
+        'General technical error. See server logs for more details.';
       return 'error-banner';
     }
   }

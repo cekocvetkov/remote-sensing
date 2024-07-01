@@ -44,3 +44,10 @@ button {
   width: 50px;
   cursor: pointer;
 }
+.dataset-description {
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.1rem;
+  font-size: small;
+}

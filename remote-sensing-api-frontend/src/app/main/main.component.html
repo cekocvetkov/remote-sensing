@@ -1,12 +1,19 @@
-<app-map
-  [loading]="(vm$ | async)!.loading"
-  [loadedImage]="(vm$ | async)!.selectedItem"
-  [currentExtent]="(vm$ | async)!.currentExtent"
-  [mapSource]="(vm$ | async)!.mapSource"
-  (drawEnd$)="onDrawEnd($event)"
->
-</app-map>
-
+<div>
+  <app-map
+    [loading]="(vm$ | async)!.loading"
+    [loadedImage]="(vm$ | async)!.selectedItem"
+    [currentExtent]="(vm$ | async)!.currentExtent"
+    [mapSource]="(vm$ | async)!.mapSource"
+    (drawEnd$)="onDrawEnd($event)"
+  >
+  </app-map>
+  <div class="dataset-description">
+    <div>Datasets reference:</div>
+    <div *ngFor="let model of (vm$ | async)!.models">
+      <a href="{{ model.datasetUrl }}">{{ model.displayName }}</a>
+    </div>
+  </div>
+</div>
 <div class="controls">
   <div class="button-wrapper" *ngIf="(vm$ | async)!.mapSource === 'OSM'">
     <label>Data provider:</label>
@@ -32,65 +39,11 @@
         *ngFor="let model of (vm$ | async)!.models"
         [value]="model.modelName"
       >
-        {{ model.detectionType }}: {{ model.displayName }}
-        <a class="dataset-link" href="https://paperswithcode.com/dataset/rsvgd"
-          >Click</a
-        >
-        ({{ model.epochsTrained }}
+        {{ model.detectionType }}: {{ model.displayName }} ({{
+          model.epochsTrained
+        }}
         epochs)
       </option>
-
-      <!-- <option value="yolov8dior__object-detection">yolov8dior</option>
-      <option value="yolov9c__object-detection">yolov9coco</option>
-      <option value="ceadar__yolov9__20epoch__tree-detection">
-        ceadar__yolov9__20epoch__tree-detection
-      </option>
-      <option value="ceadar__yolov8__10epoch__tree-detection">
-        ceadar__yolov8__10epoch__tree-detection
-      </option>
-      <option value="ceadar__yolov8__20epoch__tree-detection">
-        ceadar__yolov8__20epoch__tree-detection
-      </option>
-      <option value="ceadar__yolov8__50epoch__tree-detection">
-        ceadar__yolov8__50epoch__tree-detection
-      </option>
-      <option value="jdrzej-szpygiel__yolov8__10epoch__tree-detection">
-        jdrzej-szpygiel__yolov8__10epoch__tree-detection
-      </option>
-      <option value="jdrzej-szpygiel__yolov8__20epoch__tree-detection">
-        jdrzej-szpygiel__yolov8__20epoch__tree-detection
-      </option>
-      <option value="jdrzej-szpygiel__yolov8__50epoch__tree-detection">
-        jdrzej-szpygiel__yolov8__50epoch__tree-detection
-      </option>
-      <option value="project-5jlv8__yolov8__10epoch__object-detection">
-        project-5jlv8__yolov8__10epoch__object-detection
-      </option>
-      <option value="project-5jlv8__yolov8__20epoch__object-detection">
-        project-5jlv8__yolov8__20epoch__object-detection
-      </option>
-      <option value="project-5jlv8__yolov8__50epoch__object-detection">
-        project-5jlv8__yolov8__50epoch__object-detection
-      </option>
-      <option
-        value="robotic-perception-gwk44__yolov8__10epoch__object-detection"
-      >
-        robotic-perception-gwk44__yolov8__10epoch__object-detection
-      </option>
-      <option
-        value="robotic-perception-gwk44__yolov8__20epoch__object-detection"
-      >
-        robotic-perception-gwk44__yolov8__20epoch__object-detection
-      </option>
-      <option
-        value="robotic-perception-gwk44__yolov8__50epoch__object-detection"
-      >
-        robotic-perception-gwk44__yolov8__50epoch__object-detection
-      </option>
-      <option value="TreeDetectionDeepforest">Tree Detection Deepforest</option>
-      <option value="TreeDetectionDeepforestCustom">
-        Tree Detection Deepforest Custom
-      </option> -->
     </select>
   </div>
   <button
@@ -126,6 +79,7 @@
       </div>
     </form>
   </div>
+
   <div *ngIf="(vm$ | async)!.mapSource !== 'Aeriel'"></div>
   <app-items-preview
     [items]="(vm$ | async)!.items"

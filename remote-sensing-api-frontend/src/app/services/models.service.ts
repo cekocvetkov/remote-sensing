@@ -6,6 +6,7 @@ export interface Model {
   displayName: string;
   epochsTrained: number;
   detectionType: string;
+  datasetUrl: string;
 }
 
 @Injectable({
