@@ -1,20 +1,25 @@
 # Full Stack Solution for Remote Sensing Object and Tree Detection
 
 This project uses Git Large File Storage. Before running the applications, you need to set it up with `git lfs install`
-and download the files with `git pull lfs`
+and download the files with `git lfs pull`
 ## Start the project with docker
 
-All the images are pushed in a public dockerhub repository. To start the app simply execute:
+1. git clone git@github.com:cekocvetkov/remote-sensing.git
+2. cd remote-sensing
+3. git lfs install
+4. git lfs pull
+  5. _Please make sure you deleted old docker images and containers if you had an older version of the repo and have updated at least once since_
+6. `docker-compose up`
 
-`docker-compose -f docker-compose-dockerhub-images.yml up`
+
+## Build and start the project locally with docker:
+
+`docker-compose up`
 
 The docker-compose starts the frontend and all the needed components for the full-stack solution.
 After all is successfully started one can access the frontend on `localhost:3000`
 (one can add own geotiff images under tiny-py-local-stac/stac/images, before starting the docker containers, which will then be available for the whole application)
 
-## Build and start the project locally with docker:
-
-`docker-compose up`
 
 ## Frontend Preview:
 
