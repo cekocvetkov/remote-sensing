@@ -13,7 +13,7 @@ RUN pip install opencv-python-headless
 RUN pip install deepforest
 
 COPY ./tiny-deepforest-inference/deepforest-inference.py /app/deepforest-inference.py
-RUN mkdir -p /app && \
-    find ./models -name "*.pl" -type f -exec cp {} /app \; || true
-    
+
+COPY models/available-models.json ./models/DeepForestCustomTrained* /app
+
 CMD ["python", "/app/deepforest-inference.py"]

@@ -12,7 +12,7 @@ customModel = main.deepforest()
 try:
     customModel.model.load_state_dict(torch.load("./DeepForestCustomTrained.pl"))
 except Exception as e:
-    print(f"Error loading the custom deepforest model (Only the default deepforest modle will be available). This doesn't affect the rest of the application")
+    print(f"Error loading the custom deepforest model (Only the default deepforest model will be available). This doesn't affect the rest of the application")
 
 app = Flask(__name__)
 
@@ -40,7 +40,10 @@ def get_image(model):
     image_file = request.data
     img = read_image_opencv(image_file)
     if(model=='Deepforest_Custom'):
-        image = treeDetectionCustom(img)
+        try:
+            image = treeDetectionCustom(img)
+        except Exception as e:
+            print(f"Error on tree detection with the custom trained deepforest model. Check if model was loaded successfully")
     else:
         image = treeDetection(img)
 
