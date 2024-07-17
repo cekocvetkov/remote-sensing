@@ -12,7 +12,7 @@ customModel = main.deepforest()
 try:
     customModel.model.load_state_dict(torch.load("./DeepForestCustomTrained.pl"))
 except Exception as e:
-    print(f"Error loading the custom deepforest model: {e}")
+    print(f"Error loading the custom deepforest model (Only the default deepforest modle will be available). This doesn't affect the rest of the application")
 
 app = Flask(__name__)
 
