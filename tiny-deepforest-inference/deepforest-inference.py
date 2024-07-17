@@ -44,6 +44,7 @@ def get_image(model):
             image = treeDetectionCustom(img)
         except Exception as e:
             print(f"Error on tree detection with the custom trained deepforest model. Check if model was loaded successfully")
+            return "Internal Server Error", 500
     else:
         image = treeDetection(img)
 
