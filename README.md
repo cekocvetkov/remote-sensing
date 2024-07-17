@@ -5,19 +5,44 @@
 
 1. git clone git@github.com:cekocvetkov/remote-sensing.git
 2. cd remote-sensing
-3. (one can add own geotiff images under tiny-py-local-stac/stac/images, before starting the docker containers, which will then be available for the whole application)
-4. _Please make sure you deleted old docker images and containers if you had an older version of the repo and have updated at least once since_
-5. `docker-compose up` - The docker-compose starts the frontend and all the needed components for the full-stack solution.
-6. After all is successfully started one can access the frontend on `localhost:3000`
+3. you can add your own geotiff images under tiny-py-local-stac/stac/images, before starting the docker containers, which will then be available for the whole application
+4. you can add a custom trained deepforest model under /models. Make sure to name it accordingly -  "DeepForestCustomTrained.pl". This is optional and the application will workig without this step.
+5. _Please make sure you deleted old docker imges and containers if you had an older version of the repo and have updated at least once since_
 
-## Build and start the project locally with docker:
+    _First, delete all docker containers:_
 
-`docker-compose up`
+    `docker rm remote-sensing-http-server-stac-1`
 
-The docker-compose starts the frontend and all the needed components for the full-stack solution.
-After all is successfully started one can access the frontend on `localhost:3000`
-(one can add own geotiff images under tiny-py-local-stac/stac/images, before starting the docker containers, which will then be available for the whole application)
+    `docker rm remote-sensing-create-stac-collection-1`
 
+    `docker rm remote-sensing-quarkus-app-1`
+
+    `docker rm remote-sensing-http-server-images-1`
+
+    `docker rm remote-sensing-angular-app-1`
+
+    `docker rm remote-sensing-deepforest-1`
+
+    `docker rm remote-sensing-flask-1`
+
+    _Then, delete all docker images:_
+
+    `docker rmi remote-sensing-http-server-stac:latest`
+
+    `docker rmi remote-sensing-create-stac-collection:latest`
+
+    `docker rmi remote-sensing-quarkus-app:latest`
+
+    `docker rmi remote-sensing-http-server-images:latest`
+
+    `docker rmi remote-sensing-angular-app:latest`
+
+    `docker rmi remote-sensing-deepforest:latest`
+
+    `docker rmi remote-sensing-flask:latest`
+
+6. `docker-compose up` - The docker-compose starts the frontend and all the needed components for the full-stack solution.
+7. After all is successfully started one can access the frontend on `localhost:3000`
 
 ## Frontend Preview:
 
