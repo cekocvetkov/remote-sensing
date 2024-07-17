@@ -9,7 +9,10 @@ model = main.deepforest()
 model.use_release()
 
 customModel = main.deepforest()
-customModel.model.load_state_dict(torch.load("./saved4epochs.pl"))
+try:
+    customModel.model.load_state_dict(torch.load("./DeepForestCustomTrained.pl"))
+except Exception as e:
+    print(f"Error loading the custom deepforest model: {e}")
 
 app = Flask(__name__)
 
