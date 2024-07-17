@@ -42,13 +42,13 @@ def get_image(model):
     if(model=='Deepforest_Custom'):
         try:
             image = treeDetectionCustom(img)
+            _, img_encoded = cv2.imencode('.tif', image)
         except Exception as e:
             print(f"Error on tree detection with the custom trained deepforest model. Check if model was loaded successfully")
             return "Internal Server Error", 500
     else:
         image = treeDetection(img)
-
-    _, img_encoded = cv2.imencode('.tif', image)
+        _, img_encoded = cv2.imencode('.tif', image)
 
     return send_file(io.BytesIO(img_encoded.tobytes()), mimetype='image/tiff')
 
