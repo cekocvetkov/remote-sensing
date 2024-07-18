@@ -8,7 +8,7 @@ dam
 truck
 overpass
 unknown
-stadium
+vehicle
 boat
 vehicle
 ship
