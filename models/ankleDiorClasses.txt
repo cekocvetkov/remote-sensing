@@ -4,7 +4,7 @@ groundtrackfield
 baseballfield
 bridge
 chimney
-dam
+stadium
 truck
 overpass
 unknown
